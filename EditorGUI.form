@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="LineEditor.EditorGUI">
+  <grid id="27dc6" binding="EditorPanel" layout-manager="GridLayoutManager" row-count="6" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1280" height="717"/>
+    </constraints>
+    <properties>
+      <background color="-3287847"/>
+      <foreground color="-8153868"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="73070" class="javax.swing.JButton" binding="findButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <text value="Find"/>
+        </properties>
+      </component>
+      <component id="54502" class="javax.swing.JButton" binding="moreComsBtn">
+        <constraints>
+          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <text value="More Commands"/>
+        </properties>
+      </component>
+      <component id="34fb9" class="javax.swing.JButton" binding="loadButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <text value="Load"/>
+        </properties>
+      </component>
+      <component id="1f044" class="javax.swing.JButton" binding="saveButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <text value="Save"/>
+        </properties>
+      </component>
+      <component id="84b03" class="javax.swing.JButton" binding="displayButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <text value="Display"/>
+        </properties>
+      </component>
+      <component id="24340" class="javax.swing.JButton" binding="insBeforeBtn">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <hideActionText value="false"/>
+          <text value="Insert Before"/>
+        </properties>
+      </component>
+      <component id="ddbb7" class="javax.swing.JButton" binding="insAfterBtn">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <text value="Insert After"/>
+        </properties>
+      </component>
+      <component id="7d617" class="javax.swing.JButton" binding="deleteButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <text value="Delete"/>
+        </properties>
+      </component>
+      <component id="d3947" class="javax.swing.JButton" binding="replaceButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <text value="Replace"/>
+        </properties>
+      </component>
+      <component id="e87d4" class="javax.swing.JButton" binding="selectButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <foreground color="-16777216"/>
+          <text value="Select"/>
+        </properties>
+      </component>
+      <component id="be8d4" class="javax.swing.JTextArea" binding="editorArea">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="6" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <grid id="812a0" binding="topPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="5" row-span="2" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-1051571"/>
+          <foreground color="-1051571"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="f4f8c" class="javax.swing.JTextField" binding="locationTextField">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+          <component id="f9705" class="javax.swing.JTextField" binding="parameterTextField">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties/>
+          </component>
+        </children>
+      </grid>
+      <component id="4796d" class="javax.swing.JLabel" binding="paraTF">
+        <constraints>
+          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="100" height="25"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="18" style="1"/>
+          <foreground color="-16777216"/>
+          <horizontalAlignment value="4"/>
+          <text value="Parameter:"/>
+        </properties>
+      </component>
+      <component id="26c3b" class="javax.swing.JLabel" binding="locTF">
+        <constraints>
+          <grid row="0" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="125" height="25"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="18" style="1"/>
+          <foreground color="-16777216"/>
+          <horizontalAlignment value="4"/>
+          <text value="Location:"/>
+          <verticalAlignment value="0"/>
+        </properties>
+      </component>
+      <grid id="3419f" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="5" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="34" height="24"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <grid id="93540" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="7" row-span="5" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <grid id="51185" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="8" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+    </children>
+  </grid>
+</form>

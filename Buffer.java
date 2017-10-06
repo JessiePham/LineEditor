@@ -1,11 +1,11 @@
 package LineEditor;
 
 public class Buffer {
-    DoubleLinkedList textFileContent;
-    boolean dirty;
-    String fileName;
+    public DLinkedList textFileContent;
+    public boolean dirty;
+    public String fileName;
 
-    void createBuffer(){
-
+    public Buffer(DLinkedList dLinkedList) {
+        textFileContent = new DLinkedList();
     }
 }

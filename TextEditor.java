@@ -8,10 +8,6 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class TextEditor {
-    public TextEditor(){
-        super();
-    }
-
     public static void main(String[] args) throws IOException {
         JFrame editorFrame = new JFrame("Line Editor");
 
@@ -20,106 +16,151 @@ public class TextEditor {
         editorFrame.pack();
         editorFrame.setVisible(true);
 
-//        TextEditor textEditor = new TextEditor();
         process_command();
     }
 
     public static void process_command() throws IOException {
-        DLinkedList dLinkedList = new DLinkedList();
-        Buffer buffer1 = new Buffer(dLinkedList);
+//        Commands work with a DLinkedList object
+//        Commands not yet work with a Buffer object
+        Buffer textBuffer = new Buffer();
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("\nEnter your input: ");
-        String command = bufferedReader.readLine();
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(System.in));
+        System.out.println("\nEnter text file name: ");
+        Scanner scanner = new Scanner(System.in);
 
-        Scanner buffer = new Scanner(System.in);
 
+        String fileName = bufferedReader.readLine();
+        if (fileName == "") {
+            textBuffer.textFileDLinkedList = new DLinkedList();
+        } else {
+            textBuffer.fileName = fileName;
+            textBuffer.textFileDLinkedList = new DLinkedList();
+            textBuffer.textFileDLinkedList.load(fileName);
+        }
+
+//        BUG: There is a bug here
 //        TODO: Think about a while loop here
-        while (command != "q") {
+
+        String command = new String();
+        while (!command.equals("q")) {
             switch (command) {
+//                TESTED
                 case "h":       //Display instructions
-                    buffer1.dLinkedList.help();
+                    textBuffer.textFileDLinkedList.help();
                     break;
 
+//                TESTED
                 case "o":       //Load text file
-                    buffer1.load();
+                    fileName = scanner.next();
+                    textBuffer.fileName = fileName;
+                    textBuffer.textFileDLinkedList = new DLinkedList();
+                    textBuffer.textFileDLinkedList.load(fileName);
                     break;
-
+//                TESTED
                 case "w":       //Save text file
-                    buffer.save();
+                    fileName = scanner.next();
+                    textBuffer.textFileDLinkedList.save(fileName);
                     break;
-
+//                TESTED
                 case "b":       //Insert one line before specified line index
-                    int lineIndex = buffer.nextInt();
-                    String stringToInsert = buffer.next();
-                    buffer.insertBefore(lineIndex, stringToInsert);
+                    System.out.println("Insert index: ");
+                    int lineIndex = scanner.nextInt();
+                    String stringToInsert = scanner.next();
+                    textBuffer.textFileDLinkedList.insertBefore(lineIndex,
+                                                                stringToInsert);
                     break;
-
+//                TESTED
                 case "a":      //Insert one line after specified line index
-                    lineIndex = buffer.nextInt();
-                    stringToInsert = buffer.next();
-                    buffer.insertAfter(lineIndex, stringToInsert);
+                    lineIndex = scanner.nextInt();
+                    stringToInsert = scanner.next();
+                    textBuffer.textFileDLinkedList.insertAfter(lineIndex, stringToInsert);
                     break;
-
+//                TESTED
                 case "e":       //Delete one line at specified index
-                    lineIndex = buffer.nextInt();
-                    buffer.delete(lineIndex);
+                    System.out.println("Enter line number to delete:\n");
+                    lineIndex = scanner.nextInt();
+                    textBuffer.textFileDLinkedList.delete(lineIndex);
                     break;
-
+//                TESTED
                 case "x":       //Replace one line with another line at specified index
-                    lineIndex = buffer.nextInt();
-                    stringToInsert = buffer.next();
-                    buffer.replace(lineIndex, stringToInsert);
+                    System.out.println("Enter line number to replace:\n");
+                    lineIndex = scanner.nextInt();
+                    System.out.println("Enter string to insert:\n");
+                    stringToInsert = scanner.next();
+                    textBuffer.textFileDLinkedList.replace(lineIndex, stringToInsert);
                     break;
-
-                case "s":       //
+//                TESTED
+//                BUG: Previous indicator still present after change
+                case "s":       //Point the current node to the selected position
+                    lineIndex = scanner.nextInt();
+                    textBuffer.textFileDLinkedList.select(lineIndex);
+                    break;
+//                TESTED
+                case "f":
+                    String pattern = scanner.next();
+                    textBuffer.textFileDLinkedList.find(pattern);
+                    break;
 
             /*Search for the first occurrence of one specified string
             * prior to current line*/
+//                BUG: String not found
                 case "v":
-                    String stringToFind = buffer.next();
-                    buffer.findBackward(stringToFind);
+                    String stringToFind = scanner.next();
+                    textBuffer.textFileDLinkedList.findBackward(stringToFind);
                     break;
 
             /*Search for the first occurrence of one specified string
             * in current line and lines below current*/
+//                BUG: Null pointer exception
                 case "n":
-                    stringToFind = buffer.next();
-                    buffer.findForward(stringToFind);
+                    stringToFind = scanner.next();
+                    textBuffer.textFileDLinkedList.findForward(stringToFind);
                     break;
-
+//                TESTED
                 case "k":
-                    int fromIndex = buffer.nextInt();
-                    int toIndex = buffer.nextInt();
-                    buffer.deleteLines(fromIndex, toIndex);
+                    System.out.println("Delete from line number:\n");
+                    int fromLine = scanner.nextInt();
+                    System.out.println("Delete to line number:\n");
+                    int toLine = scanner.nextInt();
+                    textBuffer.textFileDLinkedList.deleteLines(fromLine, toLine);
                     break;
-
+//
                 case "y":
-                    buffer.moveLine();
+                    System.out.println("Move initial line number:\n");
+                    fromLine = scanner.nextInt();
+                    System.out.println("Move to line number:\n");
+                    toLine = scanner.nextInt();
+                    textBuffer.textFileDLinkedList.moveLine(fromLine, toLine);
                     break;
-
+//                TESTED
                 case "i":       //Go to the first line in buffer
-                    buffer.goTop();
+                    textBuffer.textFileDLinkedList.goTop();
                     break;
-
+//                TESTED
                 case "t":       //Go to the last line in buffer
-                    buffer.goBottom();
+                    textBuffer.textFileDLinkedList.goBottom();
                     break;
-
+//                TESTED
                 case "u":       //Go up one line from current in buffer
-                    buffer.goUp();
+                    textBuffer.textFileDLinkedList.goUp();
                     break;
-
+//                TESTED
                 case "d":       //Go down one line from current in buffer
-                    buffer.goDown();
+                    textBuffer.textFileDLinkedList.goDown();
+                    break;
+//                TESTED
+                case "g":       //Display the buffer
+                    textBuffer.textFileDLinkedList.display();
                     break;
 
-                case "g":       //Display the buffer
-                    buffer.display();
+                case "c":       //Clear the Console screen
+                    textBuffer.textFileDLinkedList.clear();
                     break;
             }
-            System.out.println("\nEnter your input: ");
-            command = bufferedReader.readLine();
+            System.out.println("\nEnter your command: ");
+            command = scanner.next();
         }
+        textBuffer.textFileDLinkedList.quit();
     }
 }

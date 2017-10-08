@@ -18,7 +18,7 @@ public class EditorGUI {
     private JButton deleteButton;
     private JButton replaceButton;
     private JButton selectButton;
-    private JTextArea editorArea;
+    private JTextArea editorTextArea;
     private JPanel topPanel;
     private JTextField locationTextField;
     private JTextField parameterTextField;
@@ -31,7 +31,7 @@ public class EditorGUI {
         insAfterBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editorArea.append("Hello World!\n");
+                editorTextArea.append("Hello World!\n");
             }
         });
 

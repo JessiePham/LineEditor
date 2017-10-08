@@ -27,67 +27,107 @@ public class DLinkedList extends Component {
 
     public void help() {
         System.out.println("• • Insert before (b) String line\n" +
-                "• • Insert after (a) String line\n" +
-                "• • Delete (e) line\n" +
-                "• • Replace (x) String line\n" +
-                "• • Select (s) line\n" +
-                "• • Find (f) String\n" +
-                "• • Load (o) filename\n" +
-                "• • Save (w) filename\n" +
-                "• • Display (g)\n" +
-                "• • Go top (i)\n" +
-                "• • Go to end (t)\n" +
-                "• • Go up (u)\n" +
-                "• • Go down (d)\n" +
-                "• • Find backward (v) String line\n" +
-                "• • Find forward (n) String line\n" +
-                "• • Delete lines (k) number line\n" +
-                "• • Move line (y) lines line\n" +
-                "• • Rename file (r) filename\n" +
-                "• • Help (h)\n" +
-                "• • Clear (c )\n" +
-                "• • Quit (q)");
+                           "• • Insert after (a) String line\n" +
+                           "• • Delete (e) line\n" + "• • Replace (x) String line\n" +
+                           "• • Select (s) line\n" + "• • Find (f) String\n" +
+                           "• • Load (o) filename\n" + "• • Save (w) filename\n" +
+                           "• • Display (g)\n" + "• • Go top (i)\n" +
+                           "• • Go to end (t)\n" + "• • Go up (u)\n" +
+                           "• • Go down (d)\n" + "• • Find backward (v) String line\n" +
+                           "• • Find forward (n) String line\n" +
+                           "• • Delete lines (k) number line\n" +
+                           "• • Move line (y) lines line\n" +
+                           "• • Rename file (r) filename\n" + "• • Help (h)\n" +
+                           "• • Clear (c )\n" + "• • Quit (q)");
     }
 
-    public void load() {
-        Scanner scanner = new Scanner(System.in);
-        String fileName = scanner.next();
+    /*Method load creates a buffer object that stores the content
+    * of a text file for later edits */
+    public void load(String fileName) {
+//        Scanner input = new Scanner(System.in);
+//        String fileName = input.next();     //Prompts for name of text file
         try {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
+
             String line;
-            Buffer textContent = new Buffer(this);
+
             while ((line = bufferedReader.readLine()) != null) {
-                ElementDPtr e = new ElementDPtr(line);
-                System.out.println(e.getValue());
+                insertAtEnd(line);
             }
+            ElementDPtr temp = head;
+            for (int i = 0; i < length - 1; i++) {
+                temp = temp.getNext();
+            }
+            select(1);
 //          TODO: Append text to text area
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //    TODO: To write
-    public void save() {
-
+    public void save(String fileName) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            ElementDPtr temp = head;
+            for (int i = 1; i < length; i++) {
+                writer.write(temp.getValue() + "\n");
+                temp = temp.getNext();
+            }
+            writer.close();
+            System.out.println("File successfully saved to " + fileName);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    void insertBefore(int location, String value) {
-//        Scanner scanner = new Scanner(System.in);
-//        location = scanner.nextInt();
-//        value = scanner.next();
+    public void insertAtBegin(String v) {
+        ElementDPtr e = new ElementDPtr(v, null, head);
+        head = e;
+        length++;
+    }
+
+    public void insertAtEnd(String v) {
+        if (length == 0) {
+            insertAtBegin(v);
+        } else {
+            ElementDPtr e = new ElementDPtr(v, tail.getPrev(), tail);
+//            System.out.println(v + " tail " + tail.getPrev().getValue());
+            if (tail.getPrev().getValue().equals("")) {
+                e.setPrev(head);
+            }
+
+            e.getPrev().setNext(e);
+//            System.out.println(v + " it " + length);
+            tail.setPrev(e);
+            length += 1;
+        }
+//        System.out.println(tail.getPrev().getValue() + " insertE " + length);
+    }
+
+    void insertBefore(
+            int location,
+            String textToInsert) {
 
         if (length == 0) {
-            head = new ElementDPtr(value);
+            head = new ElementDPtr(textToInsert);
             tail = head;
         } else {
             ElementDPtr temp = head;
             for (int i = 1; i < location; i++) {
                 temp = temp.getNext();
             }
-            ElementDPtr e = new ElementDPtr(value);
+            ElementDPtr e = new ElementDPtr(textToInsert);
+//            newNode.setNext(temp.getNext());
+//            newNode.setPrev(temp);
+//            newNode.getNext().setPrev(newNode);
+//            temp.setNext(newNode);
+
             temp.getPrev().setNext(e);
             e.setPrev(temp.getPrev());
             e.setNext(temp);
@@ -97,7 +137,9 @@ public class DLinkedList extends Component {
         display();
     }
 
-    void insertAfter(int location, String parameter) {
+    void insertAfter(
+            int location,
+            String parameter) {
         if (length == 0) {
             head = new ElementDPtr(parameter);
             tail = head;
@@ -113,13 +155,15 @@ public class DLinkedList extends Component {
             temp.setNext(e);
         }
         length += 1;
+        display();
     }
 
     void delete(int location) {
         if (location == 0) {
             head = head.getNext();
-            if (head == null)
+            if (head == null) {
                 tail = null;
+            }
         }
         if (length == 0) {
             System.out.println("There's nothing to delete");
@@ -133,10 +177,12 @@ public class DLinkedList extends Component {
 
         }
         length -= 1;
-
+        display();
     }
 
-    void replace(int location, String parameter) {
+    void replace(
+            int location,
+            String parameter) {
         if (location == 0) {
             insertBefore(0, parameter);
             delete(1);
@@ -151,70 +197,90 @@ public class DLinkedList extends Component {
             temp.getNext().setPrev(e);
             temp.getPrev().setNext(e);
             // delete();
+        }
+        display();
+    }
 
+    void select(int lineIndex) {
+        ElementDPtr temp = head;
+        for (int tempIndex = 1; tempIndex < lineIndex; tempIndex++) {
+            temp = temp.getNext();
+        }
+        current = temp;
+        current.setValue(current.getValue() + "<");
+        display();
+    }
+
+    void find(String pattern) {
+        ElementDPtr temp = head;
+
+        int indexOfPattern = getPosition(pattern);
+        if (indexOfPattern == -1) {
+            System.out.println("String " + pattern + " NOT FOUND.");
+        } else {
+            select(indexOfPattern);
         }
     }
 
-//    TODO: To write
-    void select(){}
+    void findBackward(String pattern) {
+        ElementDPtr temp = head;
+        while ((temp.getValue() != pattern) || temp != current) {
+            temp = temp.getNext();
+        }
+        if (temp.getValue() == pattern) {
+            current = temp;
+        } else {
+            System.out.println("STRING " + pattern + " NOT FOUND.");
+        }
 
-//    TODO: To write
-    void find(){}
+    }
+
+    void findForward(String pattern) {
+        ElementDPtr temp = current;
+        while (temp.getValue() != pattern || temp != tail) {
+            temp = temp.getNext();
+        }
+        if (temp.getValue() == pattern) {
+            select(getPosition(pattern));
+        } else {
+            System.out.println("STRING " + pattern + " NOT FOUND.");
+        }
+
+    }
+
+    //    Questionable method
+    void goTop() {
+        select(1);
+    }
+
+    //    Questionable method
+    void goBottom() {
+        select(length);
+    }
+
+    void goUp() {
+        select(getPosition(current.getPrev().getValue()));
+    }
+
+    void goDown() {
+        select(getPosition(current.getNext().getValue()));
+    }
 
     public void display() {
         if (head == null) {
             System.out.println("nothing");
         } else {
             ElementDPtr temp = head;
-            while (temp != null)
+            while (temp != null) {
                 System.out.println(temp.getValue());
-            temp = temp.getNext();
-        }
-    }
-
-    //    Questionable method
-    void goTop() {
-        current = head;
-    }
-
-    //    Questionable method
-    void goBottom() {
-        current = tail;
-    }
-
-    void goUp() {
-        current = current.getPrev();
-    }
-
-    void goDown() {
-        current = current.getNext();
-    }
-
-    void findBackward(String pattern) {
-        ElementDPtr temp = head;
-        while (temp.getValue() != pattern && temp != current) {
-            temp = temp.getNext();
-            if (temp.getValue() == pattern) {
-                current = temp;
-            } else {
-                System.out.println("STRING " + pattern + " NOT FOUND.");
+                temp = temp.getNext();
             }
         }
     }
 
-    void findForward(String pattern) {
-        ElementDPtr temp = tail;
-        while (temp.getValue() != pattern && temp != current) {
-            temp = temp.getPrev();
-            if (temp.getValue() == pattern) {
-                current = temp;
-            } else {
-                System.out.println("STRING " + pattern + " NOT FOUND.");
-            }
-        }
-    }
-
-    void deleteLines(int start, int stop) {
+    void deleteLines(
+            int start,
+            int stop) {
         if ((start < 1) || (stop > length) || (start > length) || (stop < 1)) {
             System.out.println("INDICES OUT OF RANGE.");
         } else {
@@ -224,16 +290,39 @@ public class DLinkedList extends Component {
         }
     }
 
-    //    TODO: To write
     void quit() {
+        System.exit(0);
     }
 
-//    TODO: Write
-    void moveLine(){}
+    //    TODO: Write
+    void moveLine(
+            int fromLine,
+            int toLine) {
+        ElementDPtr copyOfSourceLine = new ElementDPtr();
+    }
 
-//    TODO: Write
-    void renameFile(){}
+    //    TODO: Write
+    void renameFile() {
 
-//    TODO: Write
-    void clear(){}
+    }
+
+    //    BUG: Does not clear the console
+    void clear() {
+        System.out.flush();
+    }
+
+    public int getPosition(String v) {
+        // go looking for the data
+        ElementDPtr temp = head;
+        int pos = 1;
+        while (temp != null) {
+            if (temp.getValue().equals(v)) {
+                // return the position if found
+                return pos;
+            }
+            pos += 1;
+            temp = temp.getNext();
+        }
+        return -1;
+    }
 }

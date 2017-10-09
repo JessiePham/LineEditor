@@ -224,36 +224,32 @@ public class DLinkedList extends Component {
 
     void findBackward(String pattern) {
         ElementDPtr temp = head;
-        while ((temp.getValue() != pattern) || temp != current) {
-            temp = temp.getNext();
-        }
-        if (temp.getValue() == pattern) {
-            current = temp;
-        } else {
-            System.out.println("STRING " + pattern + " NOT FOUND.");
-        }
 
+        int indexOfPattern = getPosition(pattern);
+        if (indexOfPattern > getPosition(current.getValue()) ||
+            indexOfPattern == -1) {
+            System.out.println("STRING " + pattern + " NOT FOUND.");
+        }else {
+            select(indexOfPattern);
+        }
     }
 
     void findForward(String pattern) {
-        ElementDPtr temp = current;
-        while (temp.getValue() != pattern || temp != tail) {
-            temp = temp.getNext();
-        }
-        if (temp.getValue() == pattern) {
-            select(getPosition(pattern));
-        } else {
-            System.out.println("STRING " + pattern + " NOT FOUND.");
-        }
+        ElementDPtr temp = head;
 
+        int indexOfPattern = getPosition(pattern);
+        if (indexOfPattern < getPosition(current.getValue()) ||
+            indexOfPattern == -1) {
+            System.out.println("STRING " + pattern + " NOT FOUND.");
+        }else {
+            select(indexOfPattern);
+        }
     }
 
-    //    Questionable method
     void goTop() {
         select(1);
     }
 
-    //    Questionable method
     void goBottom() {
         select(length);
     }
@@ -294,11 +290,16 @@ public class DLinkedList extends Component {
         System.exit(0);
     }
 
-    //    TODO: Write
     void moveLine(
             int fromLine,
             int toLine) {
-        ElementDPtr copyOfSourceLine = new ElementDPtr();
+        ElementDPtr temp = head;
+        for (int i = 1; i < fromLine; i++) {
+            temp = temp.getNext();
+        }
+        insertBefore(toLine, temp.getValue());
+        delete(fromLine + 1);
+        display();
     }
 
     //    TODO: Write
@@ -308,6 +309,7 @@ public class DLinkedList extends Component {
 
     //    BUG: Does not clear the console
     void clear() {
+        System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 

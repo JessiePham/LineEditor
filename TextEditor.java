@@ -125,7 +125,7 @@ public class TextEditor {
                     int toLine = scanner.nextInt();
                     textBuffer.textFileDLinkedList.deleteLines(fromLine, toLine);
                     break;
-//
+//                  TESTED
                 case "y":
                     System.out.println("Move initial line number:\n");
                     fromLine = scanner.nextInt();

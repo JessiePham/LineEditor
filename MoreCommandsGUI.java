@@ -20,11 +20,25 @@ public class MoreCommandsGUI {
     private JTextField ExtraParameterTextField;
     JPanel CommandsPanel;
 
-    public MoreCommandsGUI(){
-//        Opens More Commands panel
-        JFrame moreCommandsFrame = new JFrame("Extra Commands");
-        moreCommandsFrame.setContentPane(new MoreCommandsGUI().CommandsPanel);
-        moreCommandsFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        moreCommandsFrame.pack();
+    public MoreCommandsGUI(JTextArea textArea, JTextField parameter, JTextField location){
+
+        helpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea.append("• • Insert before (b) String line\n" +
+                          "• • Insert after (a) String line\n" +
+                          "• • Delete (e) line\n" + "• • Replace (x) String line\n" +
+                          "• • Select (s) line\n" + "• • Find (f) String\n" +
+                          "• • Load (o) filename\n" + "• • Save (w) filename\n" +
+                          "• • Display (g)\n" + "• • Go top (i)\n" +
+                          "• • Go to end (t)\n" + "• • Go up (u)\n" +
+                          "• • Go down (d)\n" + "• • Find backward (v) String line\n" +
+                          "• • Find forward (n) String line\n" +
+                          "• • Delete lines (k) number line\n" +
+                          "• • Move line (y) lines line\n" +
+                          "• • Rename file (r) filename\n" + "• • Help (h)\n" +
+                          "• • Clear (c )\n" + "• • Quit (q)");
+            }
+        });
     }
 }
